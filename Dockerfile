@@ -4,7 +4,7 @@
 # Set Ubuntu version
 ARG UBUNTU_VERSION=20.04
 # Download base ubuntu image
-FROM ubuntu:${UBUNTU_VERSION}
+FROM ubuntu:${UBUNTU_VERSION} as base
 # Set label information about the image
 LABEL maintainer="IOG Education Team"
 LABEL version="0.1"
@@ -20,4 +20,28 @@ WORKDIR /app
 # Dependencies Installation #
 #############################
 # Update Ubuntu Software repository
-RUN apt update
+RUN apt-get update -y
+# Install development dependencies
+RUN apt-get install -y \
+  curl \
+  xz-utils \
+  automake \
+  build-essential \
+  g++\
+  git \
+  jq \
+  libicu-dev \
+  libffi-dev \
+  libgmp-dev \
+  libncursesw5 \
+  libpq-dev \
+  libssl-dev \
+  libsystemd-dev \
+  libtinfo-dev \
+  libtool \
+  make \
+  pkg-config \
+  tmux \
+  wget \
+  zlib1g-dev libreadline-dev llvm libnuma-dev \
+  && rm -rf /var/lib/apt/lists/*

@@ -1,5 +1,17 @@
-version: "3.7"
+version: "3.5"
+volumes:
+  node-ipc:
+  node-db:
 services:
   app:
-    build:
-      context: .
+    build: .
+    environment:
+      NETWORK: ${NETWORK:-preprod}
+    volumes:
+      - node-db:/data/db
+      - node-ipc:/ipc
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
